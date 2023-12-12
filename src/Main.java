@@ -1,7 +1,9 @@
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
-        task1();
-//        task2();
+//        task1();
+        task2();
     }
 
     //Task1
@@ -200,6 +202,48 @@ public class Main {
 
     //вывод матрицы на консоль
     public static void print(int[][] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                System.out.print(arr[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    //Task2
+    public static void task2() {
+        int[] arr1 = {1, 2, 3, 4, 5};
+        String[] arr2 = {"one", "two", "three", "four", "five",};
+        int[][] arr3 = {{1, 2, 3}, {4, 5, 6}};
+        float[][] arr4 = {{2.7f, 10f, 0.33f, 3f, 1.4f}, {6f, 0.67f, 0.86f, 1.2f, 0.44f}};
+
+        printToConsole(arr1);
+        System.out.println("================");
+        printToConsole(arr2);
+        System.out.println("================");
+        printToConsole(arr3);
+        System.out.println("================");
+        printToConsole(arr4);
+    }
+
+    //одномерный массив типа int
+    public static void printToConsole(int[] arr) {
+        System.out.println(Arrays.toString(arr));
+    }
+
+    //одномерный массив типа String
+    public static void printToConsole(String[] arr) {
+        System.out.println(Arrays.toString(arr));
+    }
+
+    //двухмерный массив типа int
+    public static void printToConsole(int[][] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            printToConsole(arr[i]);
+        }
+    }
+    //двухмерный массив типа float
+    public static void printToConsole(float[][] arr){
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {
                 System.out.print(arr[i][j] + " ");
