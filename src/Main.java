@@ -1,9 +1,12 @@
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class Main {
     public static void main(String[] args) {
 //        task1();
-        task2();
+//        task2();
+        task3();
+
     }
 
     //Task1
@@ -242,8 +245,9 @@ public class Main {
             printToConsole(arr[i]);
         }
     }
+
     //двухмерный массив типа float
-    public static void printToConsole(float[][] arr){
+    public static void printToConsole(float[][] arr) {
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {
                 System.out.print(arr[i][j] + " ");
@@ -252,5 +256,58 @@ public class Main {
         }
     }
 
+    //Task3
+    public static void task3() {
+        String[] strings1 = {"Ароза упала", "на лапу", "Азора"};
+        String[] strings2 = {"1", "2", "3"};
+        String[] strings3 = {"a", "b", "c", "d"};
+        String[] strings4 = {"a", "c c c", "b b", "d d d d"};
+        String[] strings5 = { "Привет мой друг", "Привет друг", "Привет", "Привет мой друг это я" };
+
+        System.out.println("Вывод масссива в строку через пробел");
+        print(strings2);
+        System.out.println("====================================");
+        System.out.println("Cортировка массива в обратном порядке");
+        print(strings1);
+        print(reverse(strings1));
+        System.out.println("====================================");
+        System.out.println("Сортировка массива по количеству слов в строке");
+        System.out.println(Arrays.toString(strings4));
+        System.out.println(Arrays.toString(sortByWordCount(strings4)));
+        System.out.println(Arrays.toString(strings5));
+        System.out.println(Arrays.toString(sortByWordCount(strings5)));
+
+    }
+
+    //вывод содержимого в строку через пробел
+    public static void print(String[] strings) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < strings.length; i++) {
+            stringBuilder.append(strings[i]);
+            if (i != strings.length - 1) {
+                stringBuilder.append(" ");
+            }
+        }
+        System.out.println(String.valueOf(stringBuilder));
+    }
+
+    //сортировка массива в обратном порядке
+    public static String[] reverse(String[] strings) {
+
+        String[] result = new String[strings.length];
+        for (int i = 0; i < strings.length; i++) {
+            StringBuilder stringBuilder = new StringBuilder(strings[i]);
+            String rev = stringBuilder.reverse().toString();
+            result[strings.length - 1 - i] = rev;
+        }
+        return result;
+    }
+
+    //Сортировка массива по количеству слов в строке
+    public static String[] sortByWordCount(String[] strings)
+    {
+        Arrays.sort(strings, (x, y) -> x.split(" ").length - y.split(" ").length);
+        return strings;
+    }
 
 }
