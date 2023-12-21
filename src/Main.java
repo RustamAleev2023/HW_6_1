@@ -7,7 +7,8 @@ public class Main {
 //        task2();
 //        task3();
 //        task4();
-        task5();
+//        task5();
+        task6();
 
 
     }
@@ -421,13 +422,14 @@ public class Main {
 //        int dragonFight = 50;
 //        int spearmanHealth = 10;
 //        int spearmanFight = 10;
+
         int lowCountSpearman = 1;
-        int maxCountSpearman = dragonHealth/spearmanFight;
+        int maxCountSpearman = dragonHealth / spearmanFight;
 
         //поиск минимального кол-ва копейщиков
-        while (lowCountSpearman < maxCountSpearman){
-            int mid = lowCountSpearman + (maxCountSpearman - lowCountSpearman)/2;
-            if(fight(dragonHealth,dragonFight,spearmanHealth,spearmanFight,mid)){
+        while (lowCountSpearman < maxCountSpearman) {
+            int mid = lowCountSpearman + (maxCountSpearman - lowCountSpearman) / 2;
+            if (fight(dragonHealth, dragonFight, spearmanHealth, spearmanFight, mid)) {
                 maxCountSpearman = mid;
             } else {
                 lowCountSpearman = mid + 1;
@@ -437,21 +439,76 @@ public class Main {
 
 
     }
-    public static boolean fight(int dragonHealth, int dragonFight, int spearmanHealth, int spearmanFight, int countSpearman){
-       int sumSpearmanHealth = spearmanHealth * countSpearman;
 
-       while (true){
-           dragonHealth -= spearmanFight * countSpearman;
-           if(dragonHealth<=0){
-               return true; //Дракон проиграл
-           }
-           sumSpearmanHealth -= dragonFight;
-           if(sumSpearmanHealth <=0){
-               return false; //Копейщики проиграли
-           }
-           countSpearman = sumSpearmanHealth/spearmanHealth;
+    public static boolean fight(int dragonHealth, int dragonFight, int spearmanHealth, int spearmanFight, int countSpearman) {
+        int sumSpearmanHealth = spearmanHealth * countSpearman;
 
-       }
+        while (true) {
+            dragonHealth -= spearmanFight * countSpearman;
+            if (dragonHealth <= 0) {
+                return true; //Дракон проиграл
+            }
+            sumSpearmanHealth -= dragonFight;
+            if (sumSpearmanHealth <= 0) {
+                return false; //Копейщики проиграли
+            }
+            countSpearman = sumSpearmanHealth / spearmanHealth;
+
+        }
+    }
+
+    //Task6
+    static int countSquareBracket;
+    static int countRoundBracket;
+
+    public static void task6() {
+
+        String s = "(a[b](f[(g)(g)]))";
+
+        isOk(s);
+
+    }
+
+    public static boolean isOk(String s) {
+        countRoundBracket = 0;
+        countSquareBracket = 0;
+
+        //Первый символ не должен быть ) или ]
+        String firstSymbol = s.substring(0,1);
+        if(firstSymbol.equals(")") || firstSymbol.equals("]")){
+            System.out.println("Ошибка. Строка не может начинаться с закрывающихся скобок");
+            return false;
+        }
+        //проверяем посимвольно строку на правильную последовательность скобок
+        for (int i = 0; i < s.length(); i++) {
+            String symbol = s.substring(i, i + 1);
+            switch (symbol) {
+                case "(" -> countRoundBracket++;
+                case ")" -> countRoundBracket--;
+                case "[" -> countSquareBracket++;
+                case "]" -> countSquareBracket--;
+            }
+        }
+
+
+
+        if (countRoundBracket > 0) {
+            System.out.println("Ошибка отсутствие )");
+            return false;
+        } else if (countRoundBracket < 0) {
+            System.out.println("Ошибка отсутствие (");
+            return false;
+        } else if (countSquareBracket > 0) {
+            System.out.println("Ошибка отсутствие ]");
+            return false;
+        } else if (countSquareBracket < 0) {
+            System.out.println("Ошибка отсутствие [");
+            return false;
+        }
+        else {
+            System.out.println("Правильная строка");
+            return true;
+        }
     }
 
 
