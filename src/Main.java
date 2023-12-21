@@ -6,7 +6,8 @@ public class Main {
 //        task1();
 //        task2();
 //        task3();
-        task4();
+//        task4();
+        task5();
 
 
     }
@@ -351,6 +352,7 @@ public class Main {
         System.out.println("Наибольшая сумма чисел " + getMaxSum(arr, 0, 0));
 
     }
+
     //Создание треугольника
     public static int[][] createArr(int size) {
 
@@ -384,21 +386,73 @@ public class Main {
     }
 
     //Вывод треугольника в консоль
-    public static void printTriangleToConsole(int[][] array){
+    public static void printTriangleToConsole(int[][] array) {
         for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j <(array.length - i); j++) {
+            for (int j = 0; j < (array.length - i); j++) {
                 System.out.print(" ");
             }
             printArray(array[i]);
-            for (int j = array[i].length/2; j < array.length; j++) {
+            for (int j = array[i].length / 2; j < array.length; j++) {
                 System.out.print(" ");
             }
             System.out.println();
         }
     }
-    public static void printArray(int[] array){
+
+    public static void printArray(int[] array) {
         for (int i = 0; i < array.length; i++) {
             System.out.print(array[i] + " ");
         }
     }
+
+    //Task5
+    public static void task5() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите здоровье дракона");
+        int dragonHealth = scanner.nextInt();
+        System.out.println("Введите атаку дракона");
+        int dragonFight = scanner.nextInt();
+        System.out.println("Введите здоровье копейщика");
+        int spearmanHealth = scanner.nextInt();
+        System.out.println("Введите атаку копейщика");
+        int spearmanFight = scanner.nextInt();
+
+//        int dragonHealth = 500;
+//        int dragonFight = 50;
+//        int spearmanHealth = 10;
+//        int spearmanFight = 10;
+        int lowCountSpearman = 1;
+        int maxCountSpearman = dragonHealth/spearmanFight;
+
+        //поиск минимального кол-ва копейщиков
+        while (lowCountSpearman < maxCountSpearman){
+            int mid = lowCountSpearman + (maxCountSpearman - lowCountSpearman)/2;
+            if(fight(dragonHealth,dragonFight,spearmanHealth,spearmanFight,mid)){
+                maxCountSpearman = mid;
+            } else {
+                lowCountSpearman = mid + 1;
+            }
+        }
+        System.out.println("Минимальное кол-во копейщиков для уничтожения дракона равно: " + lowCountSpearman);
+
+
+    }
+    public static boolean fight(int dragonHealth, int dragonFight, int spearmanHealth, int spearmanFight, int countSpearman){
+       int sumSpearmanHealth = spearmanHealth * countSpearman;
+
+       while (true){
+           dragonHealth -= spearmanFight * countSpearman;
+           if(dragonHealth<=0){
+               return true; //Дракон проиграл
+           }
+           sumSpearmanHealth -= dragonFight;
+           if(sumSpearmanHealth <=0){
+               return false; //Копейщики проиграли
+           }
+           countSpearman = sumSpearmanHealth/spearmanHealth;
+
+       }
+    }
+
+
 }
