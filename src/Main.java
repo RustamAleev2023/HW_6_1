@@ -1,11 +1,13 @@
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 //        task1();
 //        task2();
-        task3();
+//        task3();
+        task4();
+
 
     }
 
@@ -262,7 +264,7 @@ public class Main {
         String[] strings2 = {"1", "2", "3"};
         String[] strings3 = {"a", "b", "c", "d"};
         String[] strings4 = {"a", "c c c", "b b", "d d d d"};
-        String[] strings5 = { "Привет мой друг", "Привет друг", "Привет", "Привет мой друг это я" };
+        String[] strings5 = {"Привет мой друг", "Привет друг", "Привет", "Привет мой друг это я"};
 
         System.out.println("Вывод масссива в строку через пробел");
         print(strings2);
@@ -304,10 +306,99 @@ public class Main {
     }
 
     //Сортировка массива по количеству слов в строке
-    public static String[] sortByWordCount(String[] strings)
-    {
-        Arrays.sort(strings, (x, y) -> x.split(" ").length - y.split(" ").length);
+    public static String[] sortByWordCount(String[] strings) {
+        Arrays.sort(strings, (left, right) -> left.split(" ").length - right.split(" ").length);
         return strings;
     }
 
+//    //метод генерации слов из английских прописных букв
+//    public static String  generateRandomString() {
+//
+//        int leftLimit = 97; // буква 'a'
+//        int rightLimit = 122; // буква 'z'
+//        int targetStringLength = 10;
+//        Random random = new Random();
+//        StringBuilder builder = new StringBuilder(targetStringLength);
+//        for (int i = 0; i < targetStringLength; i++) {
+//            int randomLimitedInt = leftLimit + (int)
+//                    (random.nextFloat() * (rightLimit - leftLimit + 1));
+//            builder.append((char) randomLimitedInt);
+//        }
+//        String generatedString = builder.toString();
+//
+//        System.out.println(generatedString);
+//
+//        StringBuilder sentence = new StringBuilder();
+//
+//        for (int i = 0; i < random.nextInt(0,9); i++) {
+//            sentence.append(generateRandomString());
+//            sentence.append(" ");
+//        }
+//        sentence.append(generateRandomString());
+//
+//        return sentence.toString();
+//    }
+
+    //Task4
+
+    public static void task4() {
+        //Решаем с помощью рекурсии
+        //результат - это сумма текущей позиции и максимального варианта (вниз налево или вниз направо)
+
+        int size = 5;
+        int[][] arr = createArr(size);
+        printTriangleToConsole(arr);
+        System.out.println("Наибольшая сумма чисел " + getMaxSum(arr, 0, 0));
+
+    }
+    //Создание треугольника
+    public static int[][] createArr(int size) {
+
+        //Проще считать, если треугольник хранить в прямоугольном массиаве,
+        // тогда спускаемся вниз либо по тому же индексу, либо на 1 больше
+        int[][] arr = {
+                {7},
+                {3, 8},
+                {8, 1, 0},
+                {2, 7, 4, 4},
+                {4, 5, 2, 6, 5,}};
+
+//        int[][] arr = {
+//                {1},
+//                {2, 3},
+//                {4, 5, 6},
+//                {7, 8, 9, 10}};
+
+        return arr;
+    }
+
+    //Считаем максимальную сумму
+    public static int getMaxSum(int[][] arr, int col, int row) {
+        int res = arr[row][col];
+        if (row != arr.length - 1) {
+            int left = getMaxSum(arr, col, row + 1);
+            int right = getMaxSum(arr, col + 1, row + 1);
+            res += Math.max(left, right);
+        }
+        return res;
+    }
+
+    //Вывод треугольника в консоль
+    public static void printTriangleToConsole(int[][] array){
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j <(array.length - i); j++) {
+                System.out.print(" ");
+            }
+            printArray(array[i]);
+            for (int j = array[i].length/2; j < array.length; j++) {
+                System.out.print(" ");
+            }
+            System.out.println();
+        }
+    }
+    public static void printArray(int[] array){
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
+        }
+    }
 }
